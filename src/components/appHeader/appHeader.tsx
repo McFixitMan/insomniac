@@ -13,6 +13,7 @@ interface AppHeaderProps {
 }
 
 export const AppHeader: React.FC<AppHeaderProps> = (props) => {
+    const isDev = useAppSelector(state => state.electron.isDev);
     const isActive = useAppSelector(state => state.electron.isActive);
     const specialStatus = useAppSelector(state => state.electron.specialStatus);
 
@@ -32,7 +33,6 @@ export const AppHeader: React.FC<AppHeaderProps> = (props) => {
                     justify="start"
                 >
                     <Col>
-
                         <Row>
                             <Col>
                                 <div
@@ -61,24 +61,26 @@ export const AppHeader: React.FC<AppHeaderProps> = (props) => {
             </Col>
 
             <Col>
-                <Tooltip
-                    title="Toggle DevTools"
-                    placement="bottomLeft"
-                >
-                    <Button
-                        className="app-header-button"
-                        ref={devToolsRef}
-                        style={{ border: 'none' }}
-                        icon={<BugOutlined />}
-                        onClick={async () => {
-                            const open = await window.api.toggleDevTools();
+                {isDev &&
+                    <Tooltip
+                        title="Toggle DevTools"
+                        placement="bottomLeft"
+                    >
+                        <Button
+                            className="app-header-button"
+                            ref={devToolsRef}
+                            style={{ border: 'none' }}
+                            icon={<BugOutlined />}
+                            onClick={async () => {
+                                const open = await window.api.toggleDevTools();
 
-                            message.info(`DevTools ${open ? 'opened' : 'closed'}`);
+                                message.info(`DevTools ${open ? 'opened' : 'closed'}`);
 
-                            devToolsRef.current?.blur();
-                        }}
-                    />
-                </Tooltip>
+                                devToolsRef.current?.blur();
+                            }}
+                        />
+                    </Tooltip>
+                }
 
                 <Tooltip
                     title="Close to tray"

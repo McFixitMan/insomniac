@@ -4,7 +4,6 @@ import * as path from 'path';
 
 import { BrowserWindow, Menu, NativeImage, Tray, app, dialog, nativeImage, screen } from 'electron';
 import { Key, keyboard } from '@nut-tree/nut-js';
-import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 
 import { ConfigSettings } from './types/configSettings';
 import { Events } from './events';
@@ -36,6 +35,7 @@ class ElectronManager {
     store: Store<ConfigSettings>;
     window?: BrowserWindow;
     webContents?: TypedWebContents<Events>;
+    isDev: boolean;
 
     constructor() {
         this.store = new Store<ConfigSettings>({
@@ -50,6 +50,8 @@ class ElectronManager {
             },
         });
 
+        this.isDev = isDev;
+
         this.initializeApp();
     }
 
@@ -62,16 +64,21 @@ class ElectronManager {
 
             this.activityLoop = setInterval(this.performMainAction, 1000 * 30);
 
-            try {
-                console.log('Adding redux devtools extension...');
-                await installExtension(REDUX_DEVTOOLS);
-                console.log(`Added redux devtools extension`);
+            if (isDev) {
+                const devtoolsInstaller = require('electron-devtools-installer');
+                const installExtension = devtoolsInstaller.default;
+                const { REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS } = devtoolsInstaller;
+                try {
+                    console.log('Adding redux devtools extension...');
+                    await installExtension(REDUX_DEVTOOLS);
+                    console.log(`Added redux devtools extension`);
 
-                console.log('Adding react devtools extension...');
-                await installExtension(REACT_DEVELOPER_TOOLS);
-                console.log(`Added react devtools extension`);
-            } catch (err) {
-                console.log(`Error adding extension:`, err);
+                    console.log('Adding react devtools extension...');
+                    await installExtension(REACT_DEVELOPER_TOOLS);
+                    console.log(`Added react devtools extension`);
+                } catch (err) {
+                    console.log(`Error adding extension:`, err);
+                }
             }
         });
 
@@ -233,7 +240,6 @@ class ElectronManager {
             app.quit();
         }
     };
-
 
     toggleDevtools = (): boolean => {
         const isDevToolsOpened = this.webContents?.isDevToolsOpened() ?? false;

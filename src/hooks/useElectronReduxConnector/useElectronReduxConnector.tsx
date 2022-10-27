@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { setConfigSettings, setIsActive, setIsMaximized, setStatus } from '@/store/modules/electronModule';
+import { setConfigSettings, setIsActive, setIsDev, setIsMaximized, setStatus } from '@/store/modules/electronModule';
 
 import { useAppDispatch } from '@/types/reduxHelpers';
 
@@ -8,6 +8,12 @@ export const useElectronReduxConnector = (): void => {
     const dispatch = useAppDispatch();
 
     React.useEffect(() => {
+        const getIsDevAsync = async (): Promise<void> => {
+            const isDev = await window.env.getIsDev();
+
+            dispatch(setIsDev(isDev));
+        };
+
         const getIsActiveAsync = async (): Promise<void> => {
             const isActive = await window.api.getIsActive();
 
@@ -32,6 +38,7 @@ export const useElectronReduxConnector = (): void => {
             dispatch(setIsMaximized(isMaximized));
         };
 
+        getIsDevAsync();
         getIsActiveAsync();
         getStatusAsync();
         getConfigSettingsAsync();

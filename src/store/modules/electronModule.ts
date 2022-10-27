@@ -3,13 +3,14 @@ import { createAction, createReducer } from '@reduxjs/toolkit';
 type ConfigSettings = Awaited<ReturnType<typeof window.api.getConfigSettings>>;
 type SpecialStatus = Awaited<ReturnType<typeof window.api.getStatus>>;
 
-
+export const setIsDev = createAction<boolean>('electron/isDev');
 export const setIsActive = createAction<boolean>('electron/setIsActive');
 export const setStatus = createAction<SpecialStatus>('electron/setStatus');
 export const setConfigSettings = createAction<ConfigSettings>('electron/setConfigSettings');
 export const setIsMaximized = createAction<boolean>('electron/setIsMaximized');
 
 interface ElectronState {
+    isDev: boolean;
     isActive: boolean;
     specialStatus?: SpecialStatus;
     configSettings?: ConfigSettings;
@@ -17,6 +18,7 @@ interface ElectronState {
 }
 
 const initialState: ElectronState = {
+    isDev: false,
     isActive: false,
     specialStatus: undefined,
     isMaximized: false,
@@ -24,6 +26,9 @@ const initialState: ElectronState = {
 
 export const electronReducer = createReducer(initialState, (builder) => {
     builder
+        .addCase(setIsDev, (state, action) => {
+            state.isDev = action.payload;
+        })
         .addCase(setIsActive, (state, action) => {
             state.isActive = action.payload;
         })

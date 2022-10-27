@@ -60,3 +60,15 @@ typedIpcMain.handle(COMMAND.setIsMaximized, (_, isMaximized) => {
 
     return isMaximized;
 });
+
+typedIpcMain.handle(COMMAND.getIsDev, () => {
+    return manager.isDev;
+});
+
+typedIpcMain.handle(COMMAND.getVersions, () => {
+    return {
+        electron: process.versions.electron,
+        chrome: process.versions.chrome,
+        node: process.versions.node,
+    };
+});
