@@ -1,0 +1,44 @@
+@import (reference) '~@styles/vars.less';
+
+.config-settings-card {
+    font-weight: lighter;
+    font-size: 2em;
+    border-radius: 25px;
+
+
+}
+
+.time-picker-popup {
+    width: 300px;
+
+    .ant-picker-panel {
+        width: 100%;
+    }
+
+    .ant-picker-time-panel-column {
+        text-align: center;
+        overflow-y: scroll;
+        scrollbar-color: blue;
+
+
+    }
+
+    .ant-picker-time-panel-column::-webkit-scrollbar {
+        width: 8px;
+        /* width of the entire scrollbar */
+    }
+
+    .ant-picker-time-panel-column::-webkit-scrollbar-track {
+        background: @component-background;
+        /* color of the tracking area */
+    }
+
+    .ant-picker-time-panel-column::-webkit-scrollbar-thumb {
+        background-color: lighten(@component-background, 20%);
+        /* color of the scroll thumb */
+        border-radius: 20px;
+        /* roundness of the scroll thumb */
+        border: 2px solid lighten(@component-background, 10%);
+        /* creates padding around scroll thumb */
+    }
+}

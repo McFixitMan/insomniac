@@ -1,0 +1,37 @@
+@import (reference) '~@styles/vars.less';
+
+.active-status-card {
+    font-weight: lighter;
+    font-size: 2em;
+    border-radius: 25px;
+
+    .status-text {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .status-icon {
+        font-size: 2.5em;
+        color: @error-color;
+
+        &.active {
+            color: @success-color;
+        }
+
+        &.warn {
+            color: @warning-color;
+        }
+    }
+
+    .active {
+        color: @success-color;
+    }
+
+    .inactive {
+        color: @error-color;
+    }
+
+    .warn {
+        color: @warning-color;
+    }
+}

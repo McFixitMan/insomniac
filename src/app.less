@@ -1,0 +1,27 @@
+@import '~antd/dist/antd.less';
+@import (reference) '~@styles/vars.less';
+
+.layout-header {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: @header-height;
+    overflow: hidden;
+    width: 100%;
+    z-index: 10;
+    // box-shadow: 0 -3px 15px 1px @primary-7;
+}
+
+.layout-routes {
+    position: absolute;
+    top: @header-height;
+    bottom: @footer-height;
+    left: 0px;
+    right: 0px;
+    overflow: auto !important;
+    background-color: darken(@component-background, 1%);
+}
+
+.primary-color {
+    color: @primary-color;
+}

@@ -1,0 +1,35 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/node_modules": true,
+        "**/*.map": true,
+        // Exclude js files except for build.js
+        "**/build": true,
+        "**/dist": true,
+    },
+    "npm.packageManager": "yarn",
+    "eslint.packageManager": "yarn",
+    "eslint.alwaysShowStatus": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.fixAll.eslint": true,
+        // "source.organizeImports": true,
+    },
+    "editor.formatOnSave": true,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "javascript.preferences.quoteStyle": "auto",
+    "typescript.preferences.quoteStyle": "auto",
+    "yaml.format.singleQuote": true,
+    "editor.detectIndentation": false,
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "html",
+        "typescript",
+        "typescriptreact"
+    ],
+}

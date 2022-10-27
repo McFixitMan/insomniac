@@ -1,0 +1,51 @@
+@import (reference) '~@styles/vars.less';
+
+.app-header {
+    z-index: 9;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: @component-background;
+    user-select: none;
+    // -webkit-app-region: drag;
+
+    .app-header-button {
+        -webkit-app-region: no-drag;
+    }
+
+    .header-title,
+    .header-icon {
+        font-size: 1em;
+        // color: @primary-color;
+    }
+
+    .header-icon {
+        color: @error-color;
+
+        &.active {
+            color: @success-color;
+        }
+
+        &.warn {
+            color: @warning-color;
+        }
+    }
+
+    .logout-icon {
+        color: @primary-color;
+        transition: color 0.15s linear;
+    }
+
+    .logout-icon:hover {
+        color: @error-color;
+        transition: color 0.15s linear;
+    }
+
+    .header-menu-button {
+        display: none;
+    }
+}
