@@ -7,7 +7,6 @@
         "**/.DS_Store": true,
         "**/node_modules": true,
         "**/*.map": true,
-        // Exclude js files except for build.js
         "**/build": true,
         "**/dist": true,
     },
@@ -17,7 +16,6 @@
     "editor.codeActionsOnSave": {
         "source.fixAll": true,
         "source.fixAll.eslint": true,
-        // "source.organizeImports": true,
     },
     "editor.formatOnSave": true,
     "typescript.preferences.importModuleSpecifier": "non-relative",
