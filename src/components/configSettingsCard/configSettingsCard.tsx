@@ -71,6 +71,20 @@ export const ConfigSettingsCard: React.FC<ConfigSettingsCardProps> = (props) => 
 
             <Form.Item>
                 <Checkbox
+                    checked={configSettings.sleepOnWeekends}
+                    onChange={(e) => {
+                        window.api.setConfigSettings({
+                            ...configSettings,
+                            sleepOnWeekends: e.target.checked,
+                        });
+                    }}
+                >
+                    Sleep On Weekends
+                </Checkbox>
+            </Form.Item>
+
+            <Form.Item>
+                <Checkbox
                     checked={configSettings.isScheduleEnabled}
                     onChange={(e) => {
                         window.api.setConfigSettings({

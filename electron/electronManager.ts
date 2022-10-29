@@ -47,6 +47,7 @@ class ElectronManager {
                     endHour: 17,
                     endMinute: 0,
                 },
+                sleepOnWeekends: true,
             },
         });
 
@@ -65,6 +66,7 @@ class ElectronManager {
             this.activityLoop = setInterval(this.performMainAction, 1000 * 30);
 
             if (isDev) {
+                // eslint-disable-next-line @typescript-eslint/no-var-requires
                 const devtoolsInstaller = require('electron-devtools-installer');
                 const installExtension = devtoolsInstaller.default;
                 const { REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS } = devtoolsInstaller;
@@ -188,6 +190,17 @@ class ElectronManager {
     performMainAction = (): void => {
         if (this.isActive) {
             const scheduleInfo = this.getScheduleInfo();
+
+            const day = new Date().getDay();
+
+            if (this.store.get('sleepOnWeekends') && (day === 6 || day === 0)) {
+                // Active, but not within our schedule window - no action
+                if (this.specialStatus !== 'outOfSchedule') {
+                    this.setSpecialStatus('outOfSchedule');
+                }
+
+                return;
+            }
 
             if (scheduleInfo.isScheduleEnabled) {
                 if (scheduleInfo.isWithinSchedule()) {
@@ -350,7 +363,7 @@ class ElectronManager {
         const displayHeight = display.bounds.height;
 
         const appWidth = 450;
-        const appHeight = 650;
+        const appHeight = 690;
 
         // Top right of the screen for mac, bottom right otherwise
         const xpos = displayWidth - appWidth;
