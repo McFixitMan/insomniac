@@ -2,7 +2,7 @@ import './activeStatusCard.less';
 
 import * as React from 'react';
 
-import { AttentionSeeker, Flip, Rotate } from 'react-awesome-reveal';
+import { AttentionSeeker, Flip } from 'react-awesome-reveal';
 import { Card, CardProps, Col, Row } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
