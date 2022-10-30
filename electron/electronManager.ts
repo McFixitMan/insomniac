@@ -377,7 +377,7 @@ class ElectronManager {
             webPreferences: {
                 preload: path.join(__dirname, 'preload.js'),
                 // TODO: Probably better to turn sandbox on, but will need to figure out some wacky way to get webpack to bundle our preload script
-                // Otherwise, everyting we do in preload would have to exist completely in one file
+                // Otherwise, everything we do in preload would have to exist completely in one file
                 sandbox: false,
             },
             darkTheme: true,
