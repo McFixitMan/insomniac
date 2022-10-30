@@ -26,7 +26,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.1
       with:
         name: linux-artifact
-        path: dist/**
+        path: dist/*.AppImage
 
   build_on_mac:
     runs-on: macos-latest
@@ -44,7 +44,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.1
       with:
         name: mac-artifact
-        path: dist/**
+        path: dist/*.dmg
   build_on_win:
     runs-on: windows-latest
     steps:
@@ -61,4 +61,4 @@ jobs:
       uses: actions/upload-artifact@v3.1.1
       with:
         name: win-artifact
-        path: dist/**
+        path: dist/*.exe
