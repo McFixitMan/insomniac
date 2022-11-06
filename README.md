@@ -1,3 +1,3 @@
 # insomniac
 
-Small Electron tray app to keep computer awake
+Small Electron tray app to keep computer awake / online
