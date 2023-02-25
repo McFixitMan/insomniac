@@ -48,6 +48,7 @@ class ElectronManager {
                     endMinute: 0,
                 },
                 sleepOnWeekends: true,
+                intervalSeconds: 30,
             },
         });
 
@@ -63,7 +64,7 @@ class ElectronManager {
             this.createWindow();
             this.createTray();
 
-            this.activityLoop = setInterval(this.performMainAction, 1000 * 30);
+            this.activityLoop = setInterval(this.performMainAction, 1000 * this.store.get('intervalSeconds'));
 
             if (isDev) {
                 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -101,6 +102,9 @@ class ElectronManager {
 
     setConfigSettings = (configSettings: ConfigSettings): ConfigSettings => {
         this.store.set(configSettings);
+
+        clearInterval(this.activityLoop);
+        this.activityLoop = setInterval(this.performMainAction, 1000 * configSettings.intervalSeconds);
 
         this.webContents?.send('onConfigSettingsChanged', configSettings);
 
@@ -363,7 +367,7 @@ class ElectronManager {
         const displayHeight = display.bounds.height;
 
         const appWidth = 450;
-        const appHeight = 690;
+        const appHeight = 825;
 
         // Top right of the screen for mac, bottom right otherwise
         const xpos = displayWidth - appWidth;

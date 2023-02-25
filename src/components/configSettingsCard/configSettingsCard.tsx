@@ -2,9 +2,11 @@ import './configSettingsCard.less';
 
 import * as React from 'react';
 
-import { Card, CardProps, Checkbox, Col, Divider, Form, Row, Spin, TimePicker } from 'antd';
+import { Card, CardProps, Checkbox, Col, Divider, Form, InputNumber, Row, Spin, TimePicker } from 'antd';
 
+import { ConfigSettings } from 'electron/types/configSettings';
 import classNames from 'classnames';
+import { debounce } from 'debounce';
 import moment from 'moment';
 import { useAppSelector } from '@/types/reduxHelpers';
 
@@ -61,6 +63,13 @@ export const ConfigSettingsCard: React.FC<ConfigSettingsCardProps> = (props) => 
         );
     }
 
+    const setConfigSettingsDebounced = debounce((update: Partial<ConfigSettings>): void => {
+        window.api.setConfigSettings({
+            ...configSettings,
+            ...update,
+        });
+    }, 500);
+
     return (
         <Card
             bordered={false}
@@ -68,6 +77,23 @@ export const ConfigSettingsCard: React.FC<ConfigSettingsCardProps> = (props) => 
             className={classNames('config-settings-card', props.className)}
         >
             <Divider>Settings</Divider>
+
+            <span style={{ fontSize: '14px' }}>Keep-Alive Interval (Seconds)</span>
+            <Form.Item>
+                <InputNumber
+                    value={configSettings.intervalSeconds}
+                    onChange={(newValue) => {
+                        const newNumberValue = Number(newValue);
+
+                        if (!isNaN(newNumberValue)) {
+                            setConfigSettingsDebounced({
+                                intervalSeconds: newNumberValue,
+                            });
+                        }
+
+                    }}
+                />
+            </Form.Item>
 
             <Form.Item>
                 <Checkbox
@@ -178,9 +204,6 @@ export const ConfigSettingsCard: React.FC<ConfigSettingsCardProps> = (props) => 
                     </Form.Item>
                 </Col>
             </Row>
-
-
-
         </Card>
     );
 };
