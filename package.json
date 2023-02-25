@@ -4,7 +4,7 @@
     "private": true,
     "homepage": "./",
     "main": "build/electron/main.js",
-    "author": "TooleBar",
+    "author": "McFixit",
     "description": "Stay awake!",
     "build": {
         "productName": "Insomniac",
